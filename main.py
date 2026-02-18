@@ -13,9 +13,9 @@ from fpdf import FPDF
 
 # --- CONFIGURATION ---
 SEARCH_QUERY = 'Antibody Drug Conjugate OR ADC OR "CAR-T" OR lymphoma OR leukemia OR "solid tumor"'
-EMAIL_SENDER = "your_email@gmail.com"
-EMAIL_PASSWORD = "your_app_password" 
-EMAIL_RECEIVER = "destination_email@gmail.com"
+EMAIL_SENDER = "theranode@gmail.com"
+EMAIL_PASSWORD = "kwutyzqjfddzvtlz" 
+EMAIL_RECEIVER = "goel.rahul07@gmail.com"
 SNAPSHOT_FILE = "trials_snapshot.json"
 CHECK_INTERVAL = 4 * 3600  # 4 Hours
 
