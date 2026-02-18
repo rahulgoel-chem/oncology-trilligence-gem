@@ -1,0 +1,40 @@
+name: Clinical Trials 4-Hour Monitor
+
+on:
+  schedule:
+    # This runs the script every 4 hours (00:00, 04:00, 08:00, etc.)
+    - cron: '0 */4 * * *'
+  workflow_dispatch: # Allows you to run it manually for testing
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/checkout@v3
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
+      run: |
+        pip install requests python-docx fpdf
+
+    - name: Run Clinical Monitor
+      env:
+        # Securely pass your email credentials from GitHub Secrets
+        EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
+        EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+        EMAIL_RECEIVER: ${{ secrets.EMAIL_RECEIVER }}
+      run: python main.py
+
+    - name: Commit and Push Snapshot
+      run: |
+        git config --global user.name "GitHub Action"
+        git config --global user.email "action@github.com"
+        git add trials_snapshot.json
+        git commit -m "Update trial snapshot [skip ci]" || echo "No changes to commit"
+        git push
